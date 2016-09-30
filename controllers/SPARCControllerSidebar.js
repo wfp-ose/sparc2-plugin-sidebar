@@ -2,25 +2,13 @@ geodash.controllers["SPARCControllerSidebar"] = function($scope, $element, $cont
 {
   angular.extend(this, $controller('GeoDashControllerBase', {$element: $element, $scope: $scope}));
   //
-  $scope.html5data = sparc.html5data;
-  $scope.charts = map_config.charts;
+  $scope.html5data = sparc2.api.html5data;
   $scope.ui = map_config.sidebar.ui;
-  $scope.filters = geodash.api.getFeatureLayer("popatrisk")["filters"];
-  var maxValueFromSummary = geodash.initial_data.layers.popatrisk["data"]["summary"]["all"]["max"]["at_admin2_month"];
+  $scope.showOptions = geodash.ui.showOptions;
+
+  $scope.maxValueFromSummary = geodash.initial_data.layers.popatrisk["data"]["summary"]["all"]["max"]["at_admin2_month"];
 
   $scope.updateVariables = function(){
-
-    /*
-    var layerGroups = {
-      "sidebar": $scope.map_config.legendlayers,
-      "sparc": ["popatrisk", "context"],
-      "wfp": ["wld_poi_facilities_wfp", "wld_trs_supplyroutes_wfp"],
-      "other": [
-        "landscan",
-        "flood_events", "landslide_events",
-        "flood_probability", "cyclone_probability",
-        "imerg_1day", "imerg_3day", "imerg_7day"]
-    };*/
 
     if("baselayers" in $scope.map_config && $scope.map_config.baselayers != undefined)
     {
@@ -45,6 +33,17 @@ geodash.controllers["SPARCControllerSidebar"] = function($scope, $element, $cont
       });
       visiblefeaturelayers.sort(function(a, b){ return $.inArray(a["id"], $scope.state.view.featurelayers) - $.inArray(b["id"], $scope.state.view.featurelayers); });
       $scope.visiblefeaturelayers = visiblefeaturelayers;
+
+      var featureLayersWithFilters = $.grep($scope.map_config.featurelayers, function(x, i){
+        var filters = extract("filters", x);
+        return Array.isArray(filters) && filters.length > 0;
+      });
+      featureLayersWithFilters.sort(function(a, b){
+        var textA = a.title.toUpperCase();
+        var textB = b.title.toUpperCase();
+        return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+      });
+      $scope.featureLayersWithFilters = featureLayersWithFilters;
 
       $scope.groups = [];
       for(var i = 0; i < $scope.ui.groups.length; i++)

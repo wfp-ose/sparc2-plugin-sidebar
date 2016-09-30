@@ -1,16 +1,126 @@
 @import "variables.less";
 
 .geodash-sidebar, .c3-axis-y-label {
-  font-family: Verdana;
+  /*font-family: Verdana;
   letter-spacing: 0.1em;
-  font-size: 14px;
+  font-size: 14px;*/
+}
+
+.geodash-sidebar-left {
+  border-right: @geodash-sidebar-border-width solid @geodash-sidebar-border-background;
+  border-radius: @geodash-sidebar-border-radius;
 }
 
 .geodash-sidebar {
 
+  box-sizing: border-box;
+
+  h1 { font-size: 2.25rem; }
+  h2 { font-size: 2rem; }
+  h3 { font-size: 1.75rem; }
+  h4 { font-size: 1.5rem; }
+  h5 { font-size: 1.33rem; }
+  h6 { font-size: 1.125rem; }
+
+  .footnote { font-size: 0.8rem; }
+
+  .input-group {
+    margin-bottom: 8px;
+  }
+
+  .twitter-typeahead {
+
+    height: 34px;
+    line-height: 20px;
+
+    input.typeahead {
+      padding: 6px 12px;
+      font-size: 14px;
+      line-height: 20px;
+      height: auto;
+    }
+  }
+
+  .input-group-addon {
+    padding: 6px 12px;
+    line-height: 20px;
+    vertical-align: middle;
+  }
+}
+
+
+.geodash-sidebar {
+
+  .geodash-sidebar-header {
+    position: relative;
+    color: @geodash-sidebar-header-color;
+    /*font-family: @geodash-sidebar-header-font-family;*/
+    background: @geodash-sidebar-header-background;
+    height: 80px;
+    padding: 4px;
+
+    a {
+      color: @geodash-sidebar-header-color;
+    }
+
+    .geodash-sidebar-header-left {
+      width: 88px;
+      border-right: 1px solid white;
+
+      img {
+        padding-left: 12px;
+        height: 72px;
+      }
+    }
+
+    .geodash-sidebar-header-right {
+      position: absolute;
+      top: ~"calc(50% - 25px)";
+      left: 108px;
+
+      a.geodash-sidebar-header-title {
+        font-size: 28px;
+        line-height: 36px;
+      }
+      a.geodash-sidebar-header-subtitle {
+        font-size: 14px;
+        line-height: 14px;
+      }
+
+    }
+
+    .geodash-sidebar-header-right-2 {
+      position: absolute;
+      top: 8px;
+      right: 0px;
+      padding-right: 12px;
+      max-width: 180px;
+
+      :first-child {
+        font-size: 20px;
+        line-height: 22px;
+      }
+
+    }
+  }
+
+  .geodash-sidebar-pane {
+    padding: 24px;
+  }
+
   hr {
     margin-top: 10px;
     margin-bottom: 10px;
+  }
+
+  .geodash-sidebar-layers-selected {
+    background: @geodash-sidebar-selection-background;
+    padding: 10px;
+    border-radius: 10px;
+
+    a, span, h4, h5, h6 {
+      color: @geodash-sidebar-selction-color;
+    }
   }
 
 
@@ -40,7 +150,7 @@
       padding-left: 4px;
       box-sizing: border-box;
       display:inline-block;
-      border-left: 1px solid white;
+      border-left: 1px solid transparent;
       width: ~"calc(100% - 91px)";
       vertical-align: top;
     }
@@ -112,8 +222,9 @@
         vertical-align: middle;
         width: 100%;
         height: 100%;
+        /* inherit font from WFP Bootstrap Theme
         font-family: 'Open Sans', sans-serif;
-        font-weight: 400;
+        font-weight: 400;*/
         font-size: @geodash-sidebar-item-font-size;
         line-height: @geodash-sidebar-item-line-height;
       }
