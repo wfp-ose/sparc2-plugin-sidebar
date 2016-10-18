@@ -1,4 +1,4 @@
-geodash.directives["sparcSidebar"] = function(){
+geodash.directives.sparcSidebar = function(){
   return {
     controller: geodash.controllers.SPARCControllerSidebar,
     restrict: 'EA',
