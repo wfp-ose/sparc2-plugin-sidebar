@@ -131,7 +131,7 @@ geodash.directives.sparcSidebar = function(){
 
               slider.data('label', label);
               geodash.ui.init_slider_label($interpolate, slider, type, range, value);
-              geodash.ui.init_slider_slider($interpolate, $scope, slider, type, range, values_n, min_n, max_n, step_n);
+              geodash.ui.init_slider_slider($interpolate, $scope, slider, type, range, value_n, min_n, max_n, step_n);
               console.log(value_n, min_n, max_n, step_n, range);
             }
           }
