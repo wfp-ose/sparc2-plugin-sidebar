@@ -139,7 +139,6 @@
               <div
                 ng-repeat="layer in visiblefeaturelayers track by $index"
                 ng-init="layerIndex = $index"
-                ng-if="layer.legend!==undefined"
                 class="geodash-sidebar-item noselect"
                 data-layer="{{ layer.id }}">
                 <div class="geodash-sidebar-item-left">
@@ -187,7 +186,7 @@
               <div
                 ng-repeat="layer in x.layers track by $index"
                 ng-init="layerIndex = $index"
-                ng-if="layer.legend | ternary_defined : ( layer.id | inArray : state.view.featurelayers | not) : false"
+                ng-if="layer.id | inArray : state.view.featurelayers | not"
                 class="geodash-sidebar-item noselect"
                 data-layer="{{ layer.id }}">
                 <div class="geodash-sidebar-item-left">
@@ -222,7 +221,6 @@
             <div
               ng-repeat="layer in baselayers track by $index"
               ng-init="layerIndex = $index"
-              ng-if="layer.legend!==undefined"
               class="geodash-sidebar-item noselect"
               data-layer="{{ layer.id }}">
               <div class="geodash-sidebar-item-left">
