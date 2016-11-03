@@ -172,7 +172,7 @@
                   <div
                     class="geodash-sidebar-item-label"
                     style="width: 100%;">
-                    <span ng-bind-html="layer.legend.label | md2html"></span>
+                    <span ng-bind-html="layer.title | md2html"></span>
                   </div>
                 </div>
               </div>
@@ -211,7 +211,7 @@
                     data-intent-name="showLayer"
                     data-intent-data="{&quot;layer&quot;:&quot;{{ layer.id }}&quot;}"
                     data-intent-ctrl="geodash-sidebar-left">
-                    <span ng-bind-html="layer.legend.label | md2html"></span>
+                    <span ng-bind-html="layer.title | md2html"></span>
                   </div>
                 </div>
               </div>
@@ -255,7 +255,7 @@
                 <div
                   class="geodash-sidebar-item-label"
                   style="{{ layer.id == state.view.baselayer ? 'width: 100%;' : 'width: 100%;opacity: 0.4;' }}">
-                  <span ng-bind-html="layer.legend.label | md2html"></span>
+                  <span ng-bind-html="layer.title | md2html"></span>
                 </div>
               </div>
             </div>
