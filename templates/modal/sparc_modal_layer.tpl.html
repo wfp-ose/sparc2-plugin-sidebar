@@ -1,0 +1,79 @@
+<div
+  id="sparc-modal-layer"
+  class="geodash-controller geodash-controller-modal geodash-modal modal fade"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="myModalLabel">
+  <div class="modal-dialog" data-backdrop="static" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalLabel" ng-bind-html="layer.title | prepend: 'Layer: '"></h5>
+      </div>
+      <div class="modal-body">
+        <div>
+          <div geodash-tabs></div>
+          <div class="tab-content">
+            <div
+              id="sparc-modal-layer-general"
+              class="tab-pane fade in active"
+              role="tabpanel"
+              style="padding: 10px;">
+              <span ng-bind-html="layer.description | md2html | default_if_undefined_or_blank : 'No description given.'"></span>
+              <div><b>Type: </b><span ng-bind-html="layer.type"></span></div>
+            </div>
+            <div
+              id="sparc-modal-layer-attributes"
+              class="tab-pane fade in active"
+              role="tabpanel"
+              style="padding: 10px;">
+            </div>
+            <div
+              id="sparc-modal-layer-source"
+              class="tab-pane fade in active"
+              role="tabpanel"
+              style="padding: 10px;">
+              <span ng-bind-html="layer | extract : 'source' : 'name' | md2html | default_if_undefined_or_blank : 'No source given.'"></span>
+            </div>
+            <div
+              id="sparc-modal-layer-download"
+              class="tab-pane fade in active"
+              role="tabpanel"
+              style="padding: 10px;">
+              <div>
+                <h6>All</h6>
+                <a
+                  ng-repeat="link in layer.download.links track by $index"
+                  class="btn btn-xs btn-primary"
+                  style="display: inline-block;margin-right: 2px;"
+                  target="_blank"
+                  ng-href="{{ render_link(layer, link, 'all') }}"
+                  ng-bind-html="link.title">
+                </a>
+              </div>
+              <div>
+                <h6>Current View</h6>
+                <a
+                  ng-repeat="link in layer.download.links track by $index"
+                  class="btn btn-xs btn-primary"
+                  style="display: inline-block;margin-right: 2px;"
+                  target="_blank"
+                  ng-href="{{ render_link(layer, link, 'current') }}"
+                  ng-bind-html="link.title">
+                </a>
+              </div>
+            </div>
+            <div
+              id="sparc-modal-layer-links"
+              class="tab-pane fade in active"
+              role="tabpanel"
+              style="padding: 10px;">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,31 +1,31 @@
 <div
   class="col-md-12 geodash-filter geodash-filter-radio"
-  style="min-height: {{ filter.height }};">
+  style="min-height: {{ filter.ui.height }};">
   <div class="geodash-filter-label">
     <a
       class="geodash-intent"
       data-intent-name="toggleModal"
-      data-intent-data="{&quot;id&quot;:&quot;geodash-modal-filter-more&quot;,&quot;static&quot;:{&quot;tab&quot;:&quot;modal-filter-more-general&quot;},&quot;dynamic&quot;:{&quot;value&quot;:[&quot;state&quot;,&quot;filters&quot;,&quot;popatrisk&quot;,&quot;{{ filter.radio.output }}&quot;],&quot;filter&quot;:[&quot;map_config&quot;,&quot;featurelayers&quot;,&quot;popatrisk&quot;,&quot;filters&quot;,&quot;{{ $index }}&quot;]}}"
+      data-intent-data="{&quot;id&quot;:&quot;geodash-modal-filter-more&quot;,&quot;static&quot;:{&quot;tab&quot;:&quot;modal-filter-more-general&quot;},&quot;dynamic&quot;:{&quot;value&quot;:[&quot;state&quot;,&quot;filters&quot;,&quot;popatrisk&quot;,&quot;{{ filter.output }}&quot;],&quot;filter&quot;:[&quot;map_config&quot;,&quot;featurelayers&quot;,&quot;popatrisk&quot;,&quot;filters&quot;,&quot;{{ $index }}&quot;]}}"
       data-intent-ctrl="geodash-map-filter">
       <i class="fa fa-info-circle"></i>
     </a>
-    <span ng-bind-html="filter.label | md2html"></span> :
+    <span ng-bind-html="filter.title | md2html"></span> :
   </div>
   <div
     class="btn-group"
     style="float:left;"
     data-toggle="buttons"
     data-layer="{{ filter.layer }}"
-    data-output="{{ filter.radio.output }}">
+    data-output="{{ filter.output }}">
     <label
-      ng-repeat="opt in filter.radio.options track by $index"
+      ng-repeat="opt in filter.ui.radio.options track by $index"
       ng-class="opt.checked ? 'btn btn-default active' : 'btn btn-default'">
       <input
         type="radio"
         id="{{ opt.id }}"
         name="{{ opt.name }}"
         value="{{ opt.value }}"
-        data-output="{{ filter.radio.output }}"
+        data-output="{{ filter.output }}"
         ng-checked="opt.checked || opt.selected"/>
       {{ opt.label }}
     </label>

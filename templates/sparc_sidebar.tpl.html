@@ -96,18 +96,18 @@
     <hr>
     <div geodash-tabs></div>
     <div class="tab-content">
-      <div
+      <!-- <div
         id="geodash-sidebar-left-welcome"
         role="tabpanel"
         class="geodash-sidebar-pane tab-pane fade in active">
         <div
           ng-bind-html="dashboard.welcome.intro | md2html">
         </div>
-      </div>
+      </div> -->
       <div
         id="geodash-sidebar-left-charts"
         role="tabpanel"
-        class="geodash-sidebar-pane tab-pane fade"
+        class="geodash-sidebar-pane tab-pane fade in active"
         style="padding: 24px 24px 50px 24px;overflow-y: scroll; height: calc(100% - 300px);">
         <div
           ng-repeat="chart in dashboard.sidebar.ui.charts track by $index"
@@ -157,8 +157,7 @@
                   --><div class="geodash-sidebar-item-icon geodash-sidebar-item-more">
                     <a
                       class="geodash-intent"
-                      data-intent-name="showModal"
-                      data-intent-data="{{ html5data('showModal', 'geodash-modal-layer-more', 'featurelayer', layer) }}"
+                      data-intents="{{ intents({'layer': layer, 'name': 'info' }) | json : 0 }}"
                       data-intent-ctrl="geodash-sidebar-left"
                       data-toggle="tooltip"
                       data-placement="bottom"
@@ -168,10 +167,20 @@
                   </div>
                 </div><!--
                 --><div class="geodash-sidebar-item-right">
-                  <div
-                    class="geodash-sidebar-item-label"
-                    style="width: 100%;">
+                  <div class="geodash-sidebar-item-label" style="">
                     <span ng-bind-html="layer.title | md2html"></span>
+                  </div>
+                  <div class="geodash-sidebar-item-icon" style="float:right;">
+                    <div
+                      class="geodash-intent"
+                      style="cursor: pointer;"
+                      data-intents="{{ intents({'layer': layer, 'name': 'download' }) | json : 0 }}"
+                      data-intent-ctrl="geodash-sidebar-left"
+                      data-toggle="tooltip"
+                      data-placement="bottom"
+                      title="Click to download this layer.">
+                      <i class="fa fa-download"></i>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -310,9 +319,9 @@
               class="row"
               style="margin-bottom: 4px;"
               ng-repeat="filter in layer.filters track by $index">
-              <div geodash-filter-radio ng-if="filter.type == 'radio'"></div>
-              <div geodash-filter-checkbox ng-if="filter.type == 'checkbox'"></div>
-              <div geodash-filter-slider ng-if="filter.type == 'slider'"></div>
+              <div geodash-filter-radio ng-if="filter.ui.type == 'radio'"></div>
+              <div geodash-filter-checkbox ng-if="filter.ui.type == 'checkbox'"></div>
+              <div geodash-filter-slider ng-if="filter.ui.type == 'slider'"></div>
             </div>
           </div>
         </div>

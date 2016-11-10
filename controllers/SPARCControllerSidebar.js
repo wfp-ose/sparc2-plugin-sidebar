@@ -84,4 +84,46 @@ geodash.controllers.SPARCControllerSidebar = function($scope, $element, $control
     }
   });
 
+  $scope.intents = function(options)
+  {
+    var intents = [];
+
+    var name = options.name;
+    if(name == "download")
+    {
+      var intent = {
+        "name": "showModal",
+        "data": {
+          "id": "sparc-modal-layer",
+          "static": {
+            "layerID": options.layer.id,
+            "tab": "sparc-modal-layer-download"
+          },
+          "dynamic" : {
+            "layer": ['featurelayer', options.layer.id]
+          }
+        }
+      };
+      intents.push(intent);
+    }
+    else if(name == "info")
+    {
+      var intent = {
+        "name": "showModal",
+        "data": {
+          "id": "sparc-modal-layer",
+          "static": {
+            "layerID": options.layer.id,
+            "tab": "sparc-modal-layer-general"
+          },
+          "dynamic" : {
+            "layer": ['featurelayer', options.layer.id]
+          }
+        }
+      };
+      intents.push(intent);
+    }
+    return intents;
+  };
+
 };
