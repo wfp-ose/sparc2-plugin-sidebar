@@ -54,7 +54,7 @@ geodash.directives.sparcSidebar = function(){
           btngroup.find('input').each(function(){
             if($(this).is(':checked'))
             {
-              filter[output].push($(this).data('value'))
+              filter[output].push($(this).data('value'));
               $(this).parent('label').removeClass('btn-default').addClass('btn-primary');
             }
             else

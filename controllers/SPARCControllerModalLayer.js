@@ -35,14 +35,119 @@ geodash.controllers.SPARCControllerModalLayer = function($scope, $element, $cont
     var url = "#";
     if(angular.isDefined(link))
     {
-      if(view == "current")
+      if(view == "export")
       {
-        var currentValues = extract(["filters", layer.id], $scope.state);
-        var schema = extract(["filters", layer.id], $scope.stateschema);
+        var params = [];
+        url = $interpolate(link.baseurl)({state: $scope.state, layer: layer, link: link}) + "?" + params.join("&");
+      }
+      else if(view == "export_month")
+      {
+        var params = [];
+        params.push("month="+$scope.state.month);
+
+        if($scope.state.hazard == "cyclone")
+        {
+          var cat = extract("filters.popatrisk.category", $scope.state);
+          if(angular.isDefined(cat))
+          {
+            params.push("cat="+cat);
+          }
+          var prob_class_max = extract("filters.popatrisk.prob_class_max", $scope.state);
+          if(angular.isDefined(prob_class_max))
+          {
+            params.push("prob_class_max="+prob_class_max);
+          }
+        }
+        else if($scope.state.hazard == "drought")
+        {
+          var prob_class_max = extract("filters.popatrisk.prob_class_max", $scope.state);
+          if(angular.isDefined(prob_class_max))
+          {
+            params.push("prob_class_max="+prob_class_max);
+          }
+        }
+        else if($scope.state.hazard == "flood")
+        {
+          var rp = extract("filters.popatrisk.rp", $scope.state);
+          if(angular.isDefined(rp))
+          {
+            params.push("rp="+rp);
+          }
+        }
+        else if($scope.state.hazard == "landslide")
+        {
+          var prob_class_max = extract("filters.popatrisk.prob_class_max", $scope.state);
+          if(angular.isDefined(prob_class_max))
+          {
+            params.push("prob_class_max="+prob_class_max);
+          }
+        }
+
+        url = $interpolate(link.baseurl)({state: $scope.state, layer: layer, link: link}) + "?" + params.join("&");
+      }
+      else if(view == "export_month_filters")
+      {
         var filters = extract("filters", layer);
         if(Array.isArray(filters))
         {
+          var currentValues = extract(["filters", layer.id], $scope.state);
+          var schema = extract(["filters", layer.id], $scope.stateschema);
           var params = [];
+
+          var special = [
+            {"path": "month", "name": "month"},
+            {"path": "filters.popatrisk.fcs", "name": "fcs"},
+            {"path": "filters.popatrisk.csi", "name": "csi"},
+            {"path": "filters.popatrisk.popatrisk_range", "name": "popatrisk"}
+          ];
+
+          for(var i = 0; i < special.length; i++)
+          {
+            var value = extract(special[i].path, $scope.state);
+            if(angular.isDefined(value))
+            {
+              params.push(special[i].name+"="+value);
+            }
+          }
+
+          if($scope.state.hazard == "cyclone")
+          {
+            var cat = extract("filters.popatrisk.category", $scope.state);
+            if(angular.isDefined(cat))
+            {
+              params.push("cat="+cat);
+            }
+            var prob_class_max = extract("filters.popatrisk.prob_class_max", $scope.state);
+            if(angular.isDefined(prob_class_max))
+            {
+              params.push("prob_class_max="+prob_class_max);
+            }
+          }
+          else if($scope.state.hazard == "drought")
+          {
+            var prob_class_max = extract("filters.popatrisk.prob_class_max", $scope.state);
+            if(angular.isDefined(prob_class_max))
+            {
+              params.push("prob_class_max="+prob_class_max);
+            }
+          }
+          else if($scope.state.hazard == "flood")
+          {
+            var rp = extract("filters.popatrisk.rp", $scope.state);
+            if(angular.isDefined(rp))
+            {
+              params.push("rp="+rp);
+            }
+          }
+          else if($scope.state.hazard == "landslide")
+          {
+            var prob_class_max = extract("filters.popatrisk.prob_class_max", $scope.state);
+            if(angular.isDefined(prob_class_max))
+            {
+              params.push("prob_class_max="+prob_class_max);
+            }
+          }
+
           for(var i = 0; i < filters.length; i++)
           {
             var filter = filters[i];
@@ -62,7 +167,12 @@ geodash.controllers.SPARCControllerModalLayer = function($scope, $element, $cont
               params.push(param);
             }
           }
-          url = $interpolate(link.baseurl)({layer: layer, link: link}) + "?" + params.join("&");
+
+          url = $interpolate(link.baseurl)({state: $scope.state, layer: layer, link: link}) + "?" + params.join("&");
+        }
+        else
+        {
+          url = link.baseurl;
         }
       }
       else

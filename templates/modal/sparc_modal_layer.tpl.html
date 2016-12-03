@@ -39,25 +39,63 @@
               class="tab-pane fade in active"
               role="tabpanel"
               style="padding: 10px;">
-              <div>
-                <h6>All</h6>
+              <div ng-if="layer.download.links | filter : {'type': 'api'} : true | length | gt : 0">
+                <h6>API</h6>
                 <a
-                  ng-repeat="link in layer.download.links track by $index"
+                  ng-repeat="link in layer.download.links | filter : {'type': 'api'} : true track by $index"
                   class="btn btn-xs btn-primary"
                   style="display: inline-block;margin-right: 2px;"
+                  data-toggle="tooltip"
+                  data-placement="{{ link | extract : 'tooltip' : 'placement' | default_if_undefined : 'bottom' }}"
+                  data-container="#sparc-modal-layer"
+                  title="{{ link | extract : 'tooltip' : 'title' }}"
                   target="_blank"
-                  ng-href="{{ render_link(layer, link, 'all') }}"
+                  ng-href="{{ render_link(layer, link, 'api') }}"
                   ng-bind-html="link.title">
                 </a>
               </div>
-              <div>
-                <h6>Current View</h6>
+              <div ng-if="layer.download.links | filter : {'type': 'export'} : true | length | gt : 0">
+                <h6>Export</h6>
                 <a
-                  ng-repeat="link in layer.download.links track by $index"
+                  ng-repeat="link in layer.download.links | filter : {'type': 'export'} : true track by $index"
                   class="btn btn-xs btn-primary"
                   style="display: inline-block;margin-right: 2px;"
+                  data-toggle="tooltip"
+                  data-placement="{{ link | extract : 'tooltip' : 'placement' | default_if_undefined : 'bottom' }}"
+                  data-container="#sparc-modal-layer"
+                  title="{{ link | extract : 'tooltip' : 'title' }}"
                   target="_blank"
-                  ng-href="{{ render_link(layer, link, 'current') }}"
+                  ng-href="{{ render_link(layer, link, 'export') }}"
+                  ng-bind-html="link.title">
+                </a>
+              </div>
+              <div ng-if="layer.download.links | filter : {'type': 'export_month'} : true | length | gt : 0">
+                <h6>Export Current Month</h6>
+                <a
+                  ng-repeat="link in layer.download.links | filter : {'type': 'export_month'} : true track by $index"
+                  class="btn btn-xs btn-primary"
+                  style="display: inline-block;margin-right: 2px;"
+                  data-toggle="tooltip"
+                  data-placement="{{ link | extract : 'tooltip' : 'placement' | default_if_undefined : 'bottom' }}"
+                  data-container="#sparc-modal-layer"
+                  title="{{ link | extract : 'tooltip' : 'title' }}"
+                  target="_blank"
+                  ng-href="{{ render_link(layer, link, 'export_month') }}"
+                  ng-bind-html="link.title">
+                </a>
+              </div>
+              <div ng-if="layer.download.links | filter : {'type': 'export_month'} : true | length | gt : 0">
+                <h6>Export Current Month + Current Filters</h6>
+                <a
+                  ng-repeat="link in layer.download.links | filter : {'type': 'export_month'} : true track by $index"
+                  class="btn btn-xs btn-primary"
+                  style="display: inline-block;margin-right: 2px;"
+                  data-toggle="tooltip"
+                  data-placement="{{ link | extract : 'tooltip' : 'placement' | default_if_undefined : 'bottom' }}"
+                  data-container="#sparc-modal-layer"
+                  title="{{ link | extract : 'tooltip' : 'title' }}"
+                  target="_blank"
+                  ng-href="{{ render_link(layer, link, 'export_month_filters') }}"
                   ng-bind-html="link.title">
                 </a>
               </div>

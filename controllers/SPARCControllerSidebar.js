@@ -71,16 +71,22 @@ geodash.controllers.SPARCControllerSidebar = function($scope, $element, $control
 
   };
   $scope.updateVariables();
-  $scope.$watch('state', $scope.updateVariables);
+  //$scope.$watch('state', $scope.updateVariables);
 
-  $scope.$on("refreshMap", function(event, args) {
-    if("state" in args)
+  $scope.$on("refreshMap", function(event, args)
+  {
+    if(angular.isDefined(extract("state", args)))
     {
-      $scope.state = args["state"];
-      $scope.updateVariables();
-      $timeout(function(){
-        $scope.$digest();
-      },0);
+      $scope.newState = geodash.util.deepCopy(extract("state", args));
+      setTimeout(function(){
+        $scope.$apply(function(){
+          $scope.state = $scope.newState;
+          $scope.updateVariables();
+          setTimeout(function(){
+            geodash.ui.update($element);
+          },0)
+        });
+      }, 0);
     }
   });
 
@@ -124,6 +130,28 @@ geodash.controllers.SPARCControllerSidebar = function($scope, $element, $control
       intents.push(intent);
     }
     return intents;
+  };
+
+  $scope.clearAndShowOptions = function($event)
+  {
+    var input_id = $($event.currentTarget).attr('data-target-input-id');
+
+    try{ $("#"+input_id).typeahead('close'); }catch(err){};
+
+    setTimeout(function(){
+
+      geodash.ui.saveToInput($event.currentTarget, null);
+      geodash.ui.clearFromScope($event.currentTarget);
+      //
+      setTimeout(function(){
+
+        geodash.ui.showOptions("#"+input_id);
+
+        $("#"+input_id).focus();
+
+      }, 0);
+
+    },0);
   };
 
 };

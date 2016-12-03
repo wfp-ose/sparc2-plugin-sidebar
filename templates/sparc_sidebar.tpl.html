@@ -37,14 +37,14 @@
             data-toggle="tooltip"
             data-placement="bottom"
             title="Show Options"
-            ng-click="showOptions('#country-input')">
+            data-target-input-id="country-input"
+            ng-click="clearAndShowOptions($event)">
             <i class="fa fa-chevron-down"></i>
           </div>
           <div
             class="input-group-addon btn btn-danger geodash-clear"
             data-toggle="tooltip"
             data-placement="bottom"
-            data-container="#geodash-sidebar-left"
             title="Clear Selection"
             data-target-input-id="country-input">
             <i class="fa fa-times"></i>
@@ -72,7 +72,8 @@
             data-toggle="tooltip"
             data-placement="bottom"
             title="Show Options"
-            ng-click="showOptions('#hazard-input')">
+            data-target-input-id="hazard-input"
+            ng-click="clearAndShowOptions($event)">
             <i class="fa fa-chevron-down"></i>
           </div>
           <div
@@ -114,10 +115,9 @@
           on-repeat-done="chart_done"
           data-repeat-index="{{ $index }}"
           id="geodash-sidebar-left-charts-chart-{{ chart.id }}">
-          <div>
-            <h6
-              style="text-align:center;"
-              ng-bind-html="chart.title | md2html"></h6>
+          <div
+            style="text-align:center;"
+            ng-bind-html="chart.title | md2html">
           </div>
           <div
             id="{{ chart.element }}"
@@ -150,6 +150,7 @@
                        data-intent-ctrl="geodash-sidebar-left"
                        data-toggle="tooltip"
                        data-placement="bottom"
+                       data-container="#geodash-sidebar-left"
                        title="Click to hide this layer.">
                        <i class="fa fa-times"></i>
                      </a>
@@ -161,6 +162,7 @@
                       data-intent-ctrl="geodash-sidebar-left"
                       data-toggle="tooltip"
                       data-placement="bottom"
+                      data-container="#geodash-sidebar-left"
                       title="Click to learn more about this layer.">
                       <i class="fa fa-info-circle"></i>
                     </a>
@@ -168,7 +170,16 @@
                 </div><!--
                 --><div class="geodash-sidebar-item-right">
                   <div class="geodash-sidebar-item-label" style="">
-                    <span ng-bind-html="layer.title | md2html"></span>
+                    <a
+                      class="geodash-intent"
+                      style="cursor: pointer;"
+                      data-intents="{{ intents({'layer': layer, 'name': 'info' }) | json : 0 }}"
+                      data-intent-ctrl="geodash-sidebar-left"
+                      data-toggle="tooltip"
+                      data-placement="bottom"
+                      data-container="#geodash-sidebar-left"
+                      title="Click to learn more about this layer."
+                      ng-bind-html="layer.title | md2html"></a>
                   </div>
                   <div class="geodash-sidebar-item-icon" style="float:right;">
                     <div
@@ -178,6 +189,7 @@
                       data-intent-ctrl="geodash-sidebar-left"
                       data-toggle="tooltip"
                       data-placement="bottom"
+                      data-container="#geodash-sidebar-left"
                       title="Click to download this layer.">
                       <i class="fa fa-download"></i>
                     </div>
@@ -202,11 +214,11 @@
                   <div class="geodash-sidebar-item-icon geodash-sidebar-item-more">
                     <a
                       class="geodash-intent"
-                      data-intent-name="toggleModal"
-                      data-intent-data="{{ html5data('toggleModal', 'geodash-modal-layer-more', 'featurelayer', layer) }}"
+                      data-intents="{{ intents({'layer': layer, 'name': 'info' }) | json : 0 }}"
                       data-intent-ctrl="geodash-sidebar-left"
                       data-toggle="tooltip"
                       data-placement="bottom"
+                      data-container="#geodash-sidebar-left"
                       title="Click to learn more about this layer.">
                       <i class="fa fa-info-circle"></i>
                     </a>
@@ -236,11 +248,11 @@
                 <div class="geodash-sidebar-item-icon geodash-sidebar-item-more">
                   <a
                     class="geodash-intent"
-                    data-intent-name="toggleModal"
-                    data-intent-data="{{ html5data('toggleModal', 'geodash-modal-layer-more', 'baselayer', layer) }}"
+                    data-intents="{{ intents({'layer': layer, 'name': 'info' }) | json : 0 }}"
                     data-intent-ctrl="geodash-sidebar-left"
                     data-toggle="tooltip"
                     data-placement="bottom"
+                    data-container="#geodash-sidebar-left"
                     title="Click to learn more about this layer.">
                     <i class="fa fa-info-circle"></i>
                   </a>
